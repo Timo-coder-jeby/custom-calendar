@@ -67,14 +67,8 @@
         }
       },
       defaultCalendarNum: {default: 365},
-      dateRange: {
-        default:function () {
-          return []
-        }
-      },
       latestDay: {default:7},
       minSelectedDay:{default:3},
-      hasPrice:{default:false},
       sign: {
         default: function () {
           return {
@@ -82,12 +76,20 @@
             end:'结束'
           }
         }
+      },
+      value:{
+        type:Array
       }
+    },
+    model:{
+      prop:'value',
+      event:'modelChange'
     },
     data () {
       return {
         items: [],
         active: [],
+        dateRange: this.value
       }
     },
     created() {
@@ -194,11 +196,8 @@
         }
       },
       clickDay(day){
-        const {active,latestDay,minSelectedDay,defaultCalendarNum,hasPrice} = this
+        const {active,latestDay,minSelectedDay,defaultCalendarNum} = this
         if (day.id && day.day && dayjs(day.id).isSameOrAfter(dayjs(),'day')){
-          if (hasPrice){
-            return false
-          }
           if (active.length < 2){
             if (active.length === 0 && !dayjs(day.id).isBetween(dayjs(`${dayjs().format('YYYY-M-D')} 00:00`),dayjs().add(latestDay,'day'),null,'[]')){
               alert(`最晚可预约${latestDay}天内取车`)
@@ -227,6 +226,15 @@
         }
       }
 
+    },
+    watch:{
+      active(n){
+        if (n.length === 2){
+          this.$emit('modelChange',[dayjs(n[0]['id']).format('YYYY-MM-DD'),dayjs(n[1]['id']).format('YYYY-MM-DD')])
+        }else if(n.length === 1) {
+          this.$emit('modelChange',[dayjs(n[0]['id']).format('YYYY-MM-DD')])
+        }
+      }
     },
     filters:{
       forMatDate(val){
