@@ -135,12 +135,12 @@
                   '[]'
                 )
               ) {
-                //Toast({ title: '默认的开始时间必须在最晚取车时间之内' })
+                alert('默认的开始时间必须在最晚取车时间之内')
               } else if (
                 Math.abs(dayjs(dateRange[0]).diff(dayjs(dateRange[1]), 'day')) + 1 <
                 minSelectedDay
               ) {
-                //Toast({ title: `默认选中的最短租期为${minSelectedDay}天` })
+                alert(`默认选中的最短租期为${minSelectedDay}天`)
               } else {
                 if (dayjs(dateRange[0]).format('YYYY-M-D') === obj.id) {
                   range.push(obj)
