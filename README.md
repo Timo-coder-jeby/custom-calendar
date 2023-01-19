@@ -1,6 +1,6 @@
 ### custom-calendar（自定义日历选择器-移动端）
 
-## Project setup（安装以来）
+## Project setup（安装依赖）
 ```
 yarn install
 ```
