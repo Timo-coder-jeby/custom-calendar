@@ -1,23 +1,24 @@
 <template>
   <div id="app">
     <Calendar
-      :sign="{start:'取车',end:'换车'}"
+      :sign="{start:'开始',end:'结束'}"
       v-model="active"
+      :firstDayIsSun="false"
     >
-      <template #price>标记</template>
+      <template #default>sign</template>
     </Calendar>
   </div>
 </template>
 
 <script>
 import Calendar from '@/components/Calendar'
-
+import dayjs from 'dayjs'
 export default {
   name: 'App',
   data(){
     return {
       id:123,
-      active:['2021-09-18','2021-10-04']
+      active:[dayjs().format('YYYY-MM-DD hh:mm:ss'),dayjs().add(1,'month').format('YYYY-MM-DD hh:mm:ss')]
     }
   },
   components: {
